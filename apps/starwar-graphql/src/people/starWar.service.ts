@@ -15,7 +15,11 @@ export class StarWarService {
                 id,
                 name,
                 species {
-                  name
+                  name,
+                  homeworld {
+                    name,
+                    diameter
+                  }
                 },
                 height,
                 gender
