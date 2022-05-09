@@ -2,9 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Film {
+  id: String!
+  title: String!
+}
+
+type FilmConnection {
+  films: [Film!]!
+}
+
 type Character {
   id: String!
   name: String!
+  filmConnection: FilmConnection
 }
 
 type Query {

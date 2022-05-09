@@ -14,12 +14,19 @@ export class CharactersService {
             people {
               id
               name
+              filmConnection {
+                films {
+                  id
+                  title
+                }
+              }
             }
           }
         }
         `,
       },
     });
+    console.log(characters.data.data.allPeople.people);
     return characters.data.data.allPeople.people as Character[];
   }
 
