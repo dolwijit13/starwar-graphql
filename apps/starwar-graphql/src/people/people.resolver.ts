@@ -8,7 +8,7 @@ export class PeopleResolver {
   ) {}
 
   @Query('allPeople')
-  getAllPeople(@Info() info) {
-    return this.starWarService.getAllPeople(info.fieldNodes[0].selectionSet.selections.map(item => item.name.value))
+  getAllPeople() {
+    return this.starWarService.getAllPeople();
   }
 }
