@@ -1,19 +1,11 @@
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
+import { PeopleModule } from '../people/people.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { SetResolver } from './set.resolver';
-
 @Module({
-  imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      typePaths: ['./**/*.graphql'],
-      driver: ApolloDriver
-    })
-  ],
+  imports: [PeopleModule],
   controllers: [AppController],
-  providers: [AppService, SetResolver],
+  providers: [AppService],
 })
 export class AppModule {}
