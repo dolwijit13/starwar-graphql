@@ -1,0 +1,13 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Character {
+  id: String!
+  name: String!
+}
+
+type Query {
+  characters: [Character!]!
+  getCharacter(id: String!): Character!
+}
