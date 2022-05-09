@@ -3,26 +3,19 @@ import axios from 'axios';
 
 @Injectable()
 export class StarWarService {
-  async getAllPeople() {
+  async getAllPeople(query: string[]) {
     const result = await axios({
       url: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
       method: 'post',
       data: {
         query: `
-            query {
-              allPeople {
-                totalCount
-                people {
-                  species {
-                    name
-                  }
-                  name
-                  birthYear
-                  gender
-                  id
-                }
+          query {
+            allPeople{
+              people {
+                ${query}
               }
             }
+          }
           `
       }
     })
