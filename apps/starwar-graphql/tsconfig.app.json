@@ -8,8 +8,8 @@
     "target": "es2015",
     "paths": {
       "@/config/*": ["config/*"],
-      "@/infrastructure/*": ["apps/starwar-graphql/src/infrastructure/*"],
-      "@/src/*": ["apps/starwar-graphql/src/*"]
+      "@/src/*": ["apps/starwar-graphql/src/*"],
+      "@/infrastructure/*": ["apps/starwar-graphql/src/infrastructure/*"]
     }
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
