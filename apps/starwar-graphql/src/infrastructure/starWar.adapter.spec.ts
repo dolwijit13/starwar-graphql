@@ -7,7 +7,7 @@ describe('StarWarAdapter', () => {
     starWarAdapter = new StarWarAdapter();
   });
 
-  describe('getAllPeople', () => {
+  describe('getAllPeople slow', () => {
     it('should return an array of person', async () => {
       const response = await starWarAdapter.getAllPeople()
       expect(response).toBeInstanceOf(Array);

@@ -4,7 +4,7 @@ import request = require('supertest');
 import { PeopleModule } from './people.module';
 import { StarWarAdapter } from '../infrastructure/starWar.adapter';
 
-describe('PeopleResolver (e2e)', () => {
+describe('PeopleResolver e2e', () => {
   let app: INestApplication;
   let starWarAdapter: StarWarAdapter;
 
