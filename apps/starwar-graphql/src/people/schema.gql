@@ -1,0 +1,23 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Homeworld {
+  name: String!
+  diameter: Int
+}
+
+type Species {
+  name: String!
+  homeworld: Homeworld
+}
+
+type Person {
+  id: String!
+  name: String!
+  species: Species
+}
+
+type Query {
+  getAllPeople: [Person!]!
+}
