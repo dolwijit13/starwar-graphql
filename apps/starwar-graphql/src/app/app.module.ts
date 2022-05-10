@@ -4,9 +4,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { CharactersModule } from '../characters/characters.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from '@/config/configuration';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      load: [configuration],
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(

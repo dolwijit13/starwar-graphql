@@ -1,3 +1,4 @@
+import configuration from '@/config/configuration';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { Character } from './character.entity';
@@ -6,7 +7,7 @@ import { Character } from './character.entity';
 export class CharactersService {
   async findAll(): Promise<Character[]> {
     const characters = await axios({
-      url: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
+      url: configuration().starwarApi,
       method: 'post',
       data: {
         query: `query {
@@ -32,7 +33,7 @@ export class CharactersService {
 
   async findByID(id: string): Promise<Character> {
     const character = await axios({
-      url: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
+      url: configuration().starwarApi,
       method: 'post',
       data: {
         query: `query {
