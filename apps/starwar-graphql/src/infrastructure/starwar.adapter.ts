@@ -1,7 +1,7 @@
-import configuration from '@/config/configuration';
-import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { Character } from '../characters/character.entity';
+import { Injectable } from '@nestjs/common';
+import configuration from '@/config/configuration';
+import { Character } from '@/src/characters/character.entity';
 
 @Injectable()
 export class StarwarAdapter {

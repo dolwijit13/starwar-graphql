@@ -1,6 +1,6 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { Character } from './character.entity';
-import { StarwarAdapter } from '../infrastructure/starwar.adapter';
+import { StarwarAdapter } from '@/infrastructure/starwar.adapter';
 
 @Resolver((of) => Character)
 export class CharactersResolver {

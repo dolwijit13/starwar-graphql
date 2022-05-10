@@ -14,9 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@/config/*": ["config/*"]
-    }
+    "paths": {}
   },
   "exclude": ["node_modules", "tmp"]
 }
