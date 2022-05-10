@@ -4,7 +4,7 @@ import request = require('supertest');
 import { PeopleModule } from './people.module';
 import { StarWarAdapter } from '../infrastructure/starWar.adapter';
 
-describe('CustomerResolver (e2e)', () => {
+describe('PeopleResolver (e2e)', () => {
   let app: INestApplication;
   let starWarAdapter: StarWarAdapter;
 
@@ -93,7 +93,6 @@ describe('CustomerResolver (e2e)', () => {
         })
         .expect(200)
         .expect((res) => {
-          console.log(res.body.data.getAllPeople)
           expect(res.body.data.getAllPeople.sort()).toEqual(mockPeople.sort().map((person) => {
             return {
               id: person.id,
