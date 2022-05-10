@@ -5,7 +5,7 @@ import axios from 'axios';
 export class StarWarService {
   async getAllPeople() {
     const result = await axios({
-      url: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
+      url: process.env.SWAPI_API,
       method: 'post',
       data: {
         query: `
