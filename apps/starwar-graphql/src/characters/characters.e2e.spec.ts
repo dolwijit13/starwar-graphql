@@ -7,7 +7,7 @@ import { INestApplication } from '@nestjs/common';
 
 const gql = '/graphql';
 
-describe('Characters', () => {
+describe('e2e Characters', () => {
   let app: INestApplication;
   let starwarAdapter: StarwarAdapter;
   let characters: Character[];

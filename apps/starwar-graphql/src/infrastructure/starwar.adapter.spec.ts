@@ -1,6 +1,6 @@
 import { StarwarAdapter } from './starwar.adapter';
 
-describe('StarwarAdapter', () => {
+describe('integration StarwarAdapter', () => {
   let starwarAdapter: StarwarAdapter;
 
   beforeEach(() => {
