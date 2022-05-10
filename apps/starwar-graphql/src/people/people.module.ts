@@ -3,17 +3,17 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PeopleResolver } from './people.resolver';
-import { StarWarService } from './starWar.service';
-import { ConfigModule } from '@nestjs/config';
+import { InfrastructureModule } from '../infrastructure/infrastructure.module';
+import { join } from 'path';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      typePaths: ['./**/*.graphql'],
+      autoSchemaFile: join(process.cwd(), 'apps/starwar-graphql/src/people/schema.gql'),
       driver: ApolloDriver
     }),
-    ConfigModule.forRoot()
+    InfrastructureModule
   ],
-  providers: [PeopleResolver, StarWarService],
+  providers: [PeopleResolver],
 })
 export class PeopleModule {}

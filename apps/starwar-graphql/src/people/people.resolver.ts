@@ -1,5 +1,6 @@
-import { Info, Query, Resolver } from '@nestjs/graphql';
-import { StarWarService } from './starWar.service';
+import { Query, Resolver } from '@nestjs/graphql';
+import { StarWarService } from '../infrastructure/starWar.service';
+import { Person } from './models/people.model';
 
 @Resolver('People')
 export class PeopleResolver {
@@ -7,7 +8,7 @@ export class PeopleResolver {
     private readonly starWarService: StarWarService,
   ) {}
 
-  @Query('allPeople')
+  @Query(returns => [Person])
   getAllPeople() {
     return this.starWarService.getAllPeople();
   }
