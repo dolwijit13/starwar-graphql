@@ -8,7 +8,6 @@ export class CharactersResolver {
 
   @Query((returns) => [Character])
   characters(): Promise<Character[]> {
-    console.log('############### characters');
     return this.starwarAdapter.getAllCharacters();
   }
 
