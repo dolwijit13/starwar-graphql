@@ -13,6 +13,11 @@ export class UserResolver {
     return this.userService.findAll();
   }
 
+  @Query(() => User)
+  getUser(@Args({ name: 'id' }) id: number) {
+    return this.userService.findOne(id);
+  }
+
   @Mutation(() => User)
   async createUser(@Args({ name: 'firstName' }) firstName: string, @Args({ name: 'lastName' }) lastName: string) {
     return this.userService.createUser(firstName, lastName);
