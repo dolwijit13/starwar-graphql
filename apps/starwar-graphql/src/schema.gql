@@ -23,10 +23,10 @@ type User {
 }
 
 type Query {
-  characters: [Character!]!
-  getCharacter(id: String!): Character!
   users: [User!]!
   getUser(id: Int!): User!
+  characters: [Character!]!
+  getCharacter(id: String!): Character!
 }
 
 type Mutation {
