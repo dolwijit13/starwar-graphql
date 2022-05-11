@@ -22,4 +22,9 @@ export class UserResolver {
   async createUser(@Args({ name: 'firstName' }) firstName: string, @Args({ name: 'lastName' }) lastName: string) {
     return this.userService.createUser(firstName, lastName);
   }
+
+  @Mutation(() => Boolean)
+  async deleteUser(@Args({ name: 'id' }) id: number) {
+    return this.userService.remove(id);
+  }
 }
