@@ -23,7 +23,7 @@ export class UserService {
   }
 
   async createUser(firstName: string, lastName: string): Promise<User> {
-    return await this.usersRepository.create({
+    return this.usersRepository.create({
       firstName,
       lastName
     })
