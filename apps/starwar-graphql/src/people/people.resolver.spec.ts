@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import request = require('supertest');
+import * as request from 'supertest';
 import { PeopleModule } from './people.module';
+import { AppModule } from '../app/app.module';
 
 const mockPeople = [
   {
@@ -38,7 +39,7 @@ describe('[e2e] PeopleResolver', () => {
     mockGetAllPeople.mockClear();
 
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [PeopleModule],
+      imports: [PeopleModule, AppModule],
     }).compile();
 
     app = moduleRef.createNestApplication();
@@ -53,14 +54,13 @@ describe('[e2e] PeopleResolver', () => {
 
   describe('getAllPeople', () => {
     it('should return id and name', () => {
-
       return (
         request(app.getHttpServer())
           .post(gql)
           .send({
             query:
               `
-              query getCharacters {
+              query getAllPeople {
                 getAllPeople{
                   id,
                   name

@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: Int!
+  firstName: String!
+  lastName: String!
+}
+
 type Homeworld {
   name: String!
   diameter: Int
@@ -20,4 +26,11 @@ type Person {
 
 type Query {
   getAllPeople: [Person!]!
+  getAllUsers: [User!]!
+  getUser(id: Float!): User!
+}
+
+type Mutation {
+  createUser(firstName: String!, lastName: String!): User!
+  deleteUser(id: Float!): Boolean!
 }
