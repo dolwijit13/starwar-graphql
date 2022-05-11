@@ -31,7 +31,7 @@ jest.mock('../infrastructure/starWar.adapter', () => {
   };
 });
 
-describe('PeopleResolver e2e', () => {
+describe('[e2e] PeopleResolver', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
