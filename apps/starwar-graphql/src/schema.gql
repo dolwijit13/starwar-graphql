@@ -17,7 +17,13 @@ type Character {
   filmConnection: FilmConnection
 }
 
+type User {
+  id: Int!
+  name: String!
+}
+
 type Query {
   characters: [Character!]!
   getCharacter(id: String!): Character!
+  users: [User!]!
 }
