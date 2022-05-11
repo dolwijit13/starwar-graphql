@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: Int!
+  firstName: String!
+  lastName: String!
+}
+
 type Homeworld {
   name: String!
   diameter: Int
@@ -16,12 +22,6 @@ type Person {
   id: String!
   name: String!
   species: Species
-}
-
-type User {
-  id: Int!
-  firstName: String!
-  lastName: String!
 }
 
 type Query {
