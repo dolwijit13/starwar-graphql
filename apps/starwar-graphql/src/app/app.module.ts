@@ -6,6 +6,9 @@ import { join } from 'path';
 import { CharactersModule } from '../characters/characters.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration from '@/config/configuration';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from '../users/users.module';
+import { User } from '../users/user.entity';
 
 @Module({
   imports: [
@@ -20,6 +23,17 @@ import configuration from '@/config/configuration';
       ),
     }),
     CharactersModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: configuration().dbHost,
+      port: configuration().dbPort as number,
+      username: configuration().dbUsername,
+      password: configuration().dbPassword,
+      database: configuration().db,
+      entities: [User],
+      synchronize: true,
+    }),
+    UsersModule,
   ],
 })
 export class AppModule {}
