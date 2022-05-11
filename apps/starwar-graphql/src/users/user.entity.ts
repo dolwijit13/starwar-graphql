@@ -1,14 +1,27 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Table,
+  Column,
+  DataType,
+  Model,
+  PrimaryKey,
+  AutoIncrement,
+} from 'sequelize-typescript';
 
-@Entity()
+@Table
 @ObjectType()
-export class User {
-  @PrimaryGeneratedColumn()
+export class User extends Model<User> {
+  @PrimaryKey
+  @AutoIncrement
+  @Column({
+    type: DataType.INTEGER,
+  })
   @Field((type) => Int)
   id: number;
 
-  @Column()
+  @Column({
+    type: DataType.STRING,
+  })
   @Field()
   name: string;
 }
