@@ -26,4 +26,13 @@ type Query {
   characters: [Character!]!
   getCharacter(id: String!): Character!
   users: [User!]!
+  getUser(id: Int!): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+}
+
+input CreateUserInput {
+  name: String!
 }
