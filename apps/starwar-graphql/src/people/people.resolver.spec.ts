@@ -2,37 +2,45 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request = require('supertest');
 import { PeopleModule } from './people.module';
-import { StarWarAdapter } from '../infrastructure/starWar.adapter';
+
+const mockPeople = [
+  {
+    "id": "cGVvcGxlOjEz",
+    "name": "Chewbacca",
+    "species": {
+      "name": "Wookie",
+      "homeworld": {
+        "name": "Kashyyyk",
+        "diameter": 12765
+      }
+    }
+  },
+  {
+    "id": "cGVvcGxlOjE0",
+    "name": "Han Solo",
+    "species": null
+  }
+]
+const mockGetAllPeople = jest.fn(async () => mockPeople)
+
+jest.mock('../infrastructure/starWar.adapter', () => {
+  return {
+    StarWarAdapter: jest.fn().mockImplementation(() => {
+      return {getAllPeople: mockGetAllPeople};
+    }),
+  };
+});
 
 describe('PeopleResolver e2e', () => {
   let app: INestApplication;
-  let starWarAdapter: StarWarAdapter;
-
-  const mockPeople = [
-    {
-      "id": "cGVvcGxlOjEz",
-      "name": "Chewbacca",
-      "species": {
-        "name": "Wookie",
-        "homeworld": {
-          "name": "Kashyyyk",
-          "diameter": 12765
-        }
-      }
-    },
-    {
-      "id": "cGVvcGxlOjE0",
-      "name": "Han Solo",
-      "species": null
-    }
-  ]
 
   beforeEach(async () => {
+    mockGetAllPeople.mockClear();
+
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [PeopleModule],
     }).compile();
 
-    starWarAdapter = moduleRef.get<StarWarAdapter>(StarWarAdapter);
     app = moduleRef.createNestApplication();
     await app.init();
   });
@@ -45,7 +53,7 @@ describe('PeopleResolver e2e', () => {
 
   describe('getAllPeople', () => {
     it('should return id and name', () => {
-      jest.spyOn(starWarAdapter, 'getAllPeople').mockImplementation(async () => mockPeople);
+
       return (
         request(app.getHttpServer())
           .post(gql)
@@ -64,14 +72,15 @@ describe('PeopleResolver e2e', () => {
           .expect((res) => {
             expect(res.body.data.getAllPeople.sort()).toEqual(mockPeople.sort().map((person) => {
               return {id: person.id, name: person.name}
-            }));
+            }))
+            expect(mockGetAllPeople.mock.calls.length).toBe(1)
+            expect(mockGetAllPeople.mock.calls[0]).toEqual([]);
           })
       )
     })
   })
 
   it('should return id, species and homeworld name', () => {
-    jest.spyOn(starWarAdapter, 'getAllPeople').mockImplementation(async () => mockPeople);
     return (
       request(app.getHttpServer())
         .post(gql)
@@ -105,6 +114,8 @@ describe('PeopleResolver e2e', () => {
                 } : null
             }
           }));
+          expect(mockGetAllPeople.mock.calls.length).toBe(1)
+          expect(mockGetAllPeople.mock.calls[0]).toEqual([]);
         })
     )
   })
