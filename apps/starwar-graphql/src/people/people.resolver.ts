@@ -8,7 +8,7 @@ export class PeopleResolver {
     private readonly starWarAdapter: StarWarAdapter,
   ) {}
 
-  @Query(returns => [Person])
+  @Query(() => [Person])
   getAllPeople() {
     return this.starWarAdapter.getAllPeople();
   }

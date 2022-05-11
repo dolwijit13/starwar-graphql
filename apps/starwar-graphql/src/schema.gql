@@ -18,6 +18,17 @@ type Person {
   species: Species
 }
 
+type User {
+  id: Int!
+  firstName: String!
+  lastName: String!
+}
+
 type Query {
   getAllPeople: [Person!]!
+  getAllUsers: [User!]!
+}
+
+type Mutation {
+  createUser(firstName: String!, lastName: String!): User!
 }

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request = require('supertest');
-import { PeopleModule } from './people.module';
+import { PeopleModule } from '../people/people.module';
 
 const mockPeople = [
   {

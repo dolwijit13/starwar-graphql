@@ -3,12 +3,12 @@ import { Species } from './species.model';
 
 @ObjectType()
 export class Person {
-  @Field(type => String)
+  @Field()
   id: string;
 
-  @Field(type => String)
+  @Field()
   name: string;
 
-  @Field(type => Species, { nullable: true })
+  @Field(() => Species, { nullable: true })
   species?: Species;
 }
