@@ -22,4 +22,8 @@ export class UsersService {
   async getUserByID(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
+
+  async deleteUserByID(id: number): Promise<void> {
+    this.userRepository.delete(id);
+  }
 }
