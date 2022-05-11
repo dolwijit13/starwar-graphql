@@ -17,7 +17,23 @@ type Character {
   filmConnection: FilmConnection
 }
 
+type User {
+  id: Int!
+  name: String!
+}
+
 type Query {
   characters: [Character!]!
   getCharacter(id: String!): Character!
+  users: [User!]!
+  getUser(id: Int!): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  deleteUser(id: Int!): Boolean!
+}
+
+input CreateUserInput {
+  name: String!
 }

@@ -1,8 +1,9 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { CharactersModule } from './characters.module';
 import { Character } from './character.entity';
 import { INestApplication } from '@nestjs/common';
+import { AppModule } from '../app/app.module';
+import { CharactersModule } from './characters.module';
 
 const gql = '/graphql';
 const characters: Character[] = [
@@ -59,7 +60,7 @@ describe('e2e Characters', () => {
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [CharactersModule],
+      imports: [CharactersModule, AppModule],
     }).compile();
     app = moduleRef.createNestApplication();
     await app.init();
@@ -69,55 +70,63 @@ describe('e2e Characters', () => {
 
   describe('characters', () => {
     it('should return an array of characters', async () => {
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .post(gql)
         .send({
-          query: `query {characters {id name filmsConnection { films { id title } }}}`,
+          query: `query {characters { id name filmConnection { films { id title } } }}`,
         })
         .expect(200)
-        .expect({ data: characters })
-        .expect(mockGetAllCharacters.mock.calls.length, 1)
-        .expect(mockGetAllCharacters.mock.calls[0], []);
+        .expect((res) => {
+          expect(res.body.data.characters).toEqual(characters);
+          expect(mockGetAllCharacters.mock.calls.length).toEqual(1);
+          expect(mockGetAllCharacters.mock.calls[0]).toEqual([]);
+        });
     });
 
     it('should return an array of characters with only selected attributes', async () => {
       const result = characters.map((character) => ({ name: character.name }));
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .post(gql)
         .send({
           query: `query {characters { name }}`,
         })
         .expect(200)
-        .expect({ data: result })
-        .expect(mockGetAllCharacters.mock.calls.length, 1)
-        .expect(mockGetAllCharacters.mock.calls[0], []);
+        .expect((res) => {
+          expect(res.body.data.characters).toEqual(result);
+          expect(mockGetAllCharacters.mock.calls.length).toEqual(1);
+          expect(mockGetAllCharacters.mock.calls[0]).toEqual([]);
+        });
     });
   });
 
   describe('getCharacter', () => {
     it('should return a character', async () => {
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .post(gql)
         .send({
-          query: `query {getcharacter(id: '1') {id name filmsConnection { films { id title } }}}`,
+          query: `query {getCharacter(id: "1") {id name filmConnection { films { id title } }}}`,
         })
         .expect(200)
-        .expect({ data: characters[0] })
-        .expect(mockGetCharacterByID.mock.calls.length, 1)
-        .expect(mockGetCharacterByID.mock.calls[0], ['1']);
+        .expect((res) => {
+          expect(res.body.data.getCharacter).toEqual(characters[0]);
+          expect(mockGetCharacterByID.mock.calls.length).toEqual(1);
+          expect(mockGetCharacterByID.mock.calls[0]).toEqual(['1']);
+        });
     });
 
     it('should return a character with only selected attributes', async () => {
       const result = { name: characters[0].name };
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .post(gql)
         .send({
-          query: 'query {characters { name }}',
+          query: `query {getCharacter(id: "1") { name }}`,
         })
         .expect(200)
-        .expect({ data: result })
-        .expect(mockGetCharacterByID.mock.calls.length, 1)
-        .expect(mockGetCharacterByID.mock.calls[0], ['1']);
+        .expect((res) => {
+          expect(res.body.data.getCharacter).toEqual(result);
+          expect(mockGetCharacterByID.mock.calls.length).toEqual(1);
+          expect(mockGetCharacterByID.mock.calls[0]).toEqual(['1']);
+        });
     });
   });
 
