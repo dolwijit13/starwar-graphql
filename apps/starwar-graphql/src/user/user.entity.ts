@@ -29,6 +29,7 @@ export class User extends Model<User> {
   })
   companyID?: number;
 
+  @Field(() => Int)
   @BelongsTo(() => Company)
   company?: Company;
 }

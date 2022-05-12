@@ -1,12 +1,20 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Company } from '../company/company.entity';
+import { CompanyService } from '../company/company.service';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
-@Resolver('User')
+@Resolver(() => User)
 export class UserResolver {
   constructor(
     private userService: UserService,
+    private companyService: CompanyService
   ) {}
+
+  @ResolveField('company', () => Company)
+  getCompany(@Parent() user: User) {
+    return this.companyService.findOne(user.companyID);
+  }
 
   @Query(() => [User])
   getAllUsers() {

@@ -13,6 +13,7 @@ export class CompanyService {
   }
 
   async findOne(id: number): Promise<Company> {
+    console.log(`loading Company ${id}`)
     return this.companiesRepository.findOne<Company>({ where: { id } });
   }
 

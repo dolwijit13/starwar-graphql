@@ -12,6 +12,7 @@ type User {
   firstName: String!
   lastName: String!
   companyID: Int!
+  company: Company!
 }
 
 type Homeworld {
