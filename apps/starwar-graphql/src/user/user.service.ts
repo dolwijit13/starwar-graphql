@@ -22,10 +22,11 @@ export class UserService {
     return true;
   }
 
-  async createUser(firstName: string, lastName: string): Promise<User> {
+  async createUser(firstName: string, lastName: string, companyID: number): Promise<User> {
     return this.usersRepository.create({
       firstName,
-      lastName
+      lastName,
+      companyID
     })
   }
 }
