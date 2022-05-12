@@ -31,24 +31,24 @@ type Company {
 }
 
 type Query {
+  companies: [Company!]!
   characters: [Character!]!
   getCharacter(id: String!): Character!
   users: [User!]!
   getUser(id: Int!): User!
-  companies: [Company!]!
 }
 
 type Mutation {
+  createCompany(createCompanyInput: CreateCompanyInput!): Company!
   createUser(createUserInput: CreateUserInput!): User!
   deleteUser(id: Int!): Boolean!
-  createCompany(createCompanyInput: CreateCompanyInput!): Company!
+}
+
+input CreateCompanyInput {
+  name: String!
 }
 
 input CreateUserInput {
   name: String!
   companyID: Float!
-}
-
-input CreateCompanyInput {
-  name: String!
 }

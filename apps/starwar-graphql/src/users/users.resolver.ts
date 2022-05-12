@@ -6,6 +6,7 @@ import {
   Int,
   ResolveField,
   Parent,
+  Context,
 } from '@nestjs/graphql';
 import { Company } from '../companies/company.entity';
 import { CreateUserInput } from './dto/create-user.input';
@@ -42,7 +43,10 @@ export class UsersResolver {
   }
 
   @ResolveField((returns) => Company)
-  async company(@Parent() user: User): Promise<Company> {
-    return this.userService.getCompanyByID(user.companyID);
+  async company(
+    @Parent() user: User,
+    @Context() { loaders }: IGraphQLContext
+  ): Promise<Company> {
+    return (await loaders).companiesLoader.load(user.companyID);
   }
 }

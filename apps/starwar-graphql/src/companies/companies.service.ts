@@ -22,4 +22,19 @@ export class CompaniesService {
   async getCompanyByID(id: number): Promise<Company> {
     return this.companiesRepository.findOne<Company>({ where: { id } });
   }
+
+  async getCompaniesByBatch(
+    companyIDs: number[]
+  ): Promise<(Company | Error)[]> {
+    const allCompanies = await this.getAllCompanies();
+    const results = allCompanies.filter((company) =>
+      companyIDs.includes(company.id)
+    );
+    const mappedResults = companyIDs.map(
+      (id) =>
+        results.find((result) => result.id === id) ||
+        new Error(`Could not load company ${id}`)
+    );
+    return mappedResults;
+  }
 }
