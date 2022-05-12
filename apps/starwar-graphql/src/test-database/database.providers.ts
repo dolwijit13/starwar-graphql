@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import { Company } from '../company/company.entity';
 import { User } from '../user/user.entity';
 
 export const databaseProviders = [
@@ -9,7 +10,7 @@ export const databaseProviders = [
         dialect: 'sqlite',
         host: ':memory:',
       });
-      sequelize.addModels([User]);
+      sequelize.addModels([User, Company]);
       await sequelize.sync();
       return sequelize;
     },

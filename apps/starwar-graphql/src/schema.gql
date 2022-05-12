@@ -2,10 +2,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Company {
+  id: Int!
+  name: String!
+}
+
 type User {
   id: Int!
   firstName: String!
   lastName: String!
+  companyID: Int!
 }
 
 type Homeworld {
@@ -28,9 +34,12 @@ type Query {
   getAllPeople: [Person!]!
   getAllUsers: [User!]!
   getUser(id: Float!): User!
+  getAllCompanies: [Company!]!
+  getCompany(id: Float!): Company!
 }
 
 type Mutation {
-  createUser(firstName: String!, lastName: String!): User!
+  createUser(firstName: String!, lastName: String!, companyID: Int!): User!
   deleteUser(id: Float!): Boolean!
+  createCompany(name: String!): Company!
 }

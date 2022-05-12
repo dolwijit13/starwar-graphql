@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
+import { CompanyModule } from '../company/company.module';
 import { DatabaseModule } from '../database/database.module';
 import { PeopleModule } from '../people/people.module';
 import { UserModule } from '../user/user.module';
@@ -18,6 +19,7 @@ import { AppService } from './app.service';
     }),
     PeopleModule,
     UserModule,
+    CompanyModule,
     DatabaseModule
   ],
   controllers: [AppController],
