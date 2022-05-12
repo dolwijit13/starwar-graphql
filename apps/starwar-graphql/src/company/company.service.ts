@@ -22,4 +22,16 @@ export class CompanyService {
       name,
     })
   }
+
+  async getCompaniesByIds (companyIds: number[]): Promise<Array<Company | Error>> {
+    console.debug(`loading ids ${companyIds}`);
+    const companies = await this.findAll()
+    const results = companies.filter((company) => companyIds.includes(company.id));
+    const mappedResults = companyIds.map(
+      (id) =>
+        results.find((result) => result.id === id) ||
+        new Error(`Could not load company ${id}`),
+    );
+    return mappedResults;
+  }
 }

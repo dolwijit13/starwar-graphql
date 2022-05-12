@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Company } from './company.entity';
 import { CompanyService } from './company.service';
 
@@ -14,7 +14,7 @@ export class CompanyResolver {
   }
 
   @Query(() => Company)
-  getCompany(@Args({ name: 'id' }) id: number) {
+  getCompany(@Args({ name: 'id', type: () => Int }) id: number) {
     return this.companyService.findOne(id);
   }
 

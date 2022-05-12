@@ -32,15 +32,15 @@ type Person {
 }
 
 type Query {
+  getAllCompanies: [Company!]!
+  getCompany(id: Int!): Company!
   getAllPeople: [Person!]!
   getAllUsers: [User!]!
-  getUser(id: Float!): User!
-  getAllCompanies: [Company!]!
-  getCompany(id: Float!): Company!
+  getUser(id: Int!): User!
 }
 
 type Mutation {
+  createCompany(name: String!): Company!
   createUser(firstName: String!, lastName: String!, companyID: Int!): User!
   deleteUser(id: Float!): Boolean!
-  createCompany(name: String!): Company!
 }

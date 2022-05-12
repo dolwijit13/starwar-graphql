@@ -1,8 +1,9 @@
-import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Context, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { Company } from '../company/company.entity';
 import { CompanyService } from '../company/company.service';
 import { User } from './user.entity';
 import { UserService } from './user.service';
+import * as DataLoader from 'dataloader';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -12,8 +13,12 @@ export class UserResolver {
   ) {}
 
   @ResolveField('company', () => Company)
-  getCompany(@Parent() user: User) {
-    return this.companyService.findOne(user.companyID);
+  getCreatedBy(
+    @Parent() user: User,
+    @Context('companiesLoader') companiesLoader: DataLoader<number, Company>,
+  ) {
+    const { companyID } = user;
+    return companiesLoader.load(companyID);
   }
 
   @Query(() => [User])
@@ -22,7 +27,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  getUser(@Args({ name: 'id' }) id: number) {
+  getUser(@Args({ name: 'id', type: () => Int }) id: number) {
     return this.userService.findOne(id);
   }
 
