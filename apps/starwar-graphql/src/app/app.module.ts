@@ -22,7 +22,14 @@ import { DatabaseModule } from '@/src/database/database.module';
       ),
     }),
     CharactersModule,
-    DatabaseModule,
+    DatabaseModule.register({
+      dialect: 'postgres',
+      database: configuration().db,
+      host: configuration().dbHost,
+      port: +configuration().dbPort,
+      username: configuration().dbUsername,
+      password: configuration().dbPassword,
+    }),
     UsersModule,
   ],
 })
