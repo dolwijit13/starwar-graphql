@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import configuration from '@/config/configuration';
 import { UsersModule } from '../users/users.module';
 import { DatabaseModule } from '@/src/database/database.module';
+import { CompaniesModule } from '../companies/companies.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { DatabaseModule } from '@/src/database/database.module';
       password: configuration().dbPassword,
     }),
     UsersModule,
+    CompaniesModule,
   ],
 })
 export class AppModule {}
