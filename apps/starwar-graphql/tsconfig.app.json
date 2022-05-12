@@ -10,7 +10,8 @@
       "@/config/*": ["config/*"],
       "@/src/*": ["apps/starwar-graphql/src/*"],
       "@/infrastructure/*": ["apps/starwar-graphql/src/infrastructure/*"]
-    }
+    },
+    "esModuleInterop": true
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts"]
