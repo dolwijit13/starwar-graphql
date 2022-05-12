@@ -20,9 +20,18 @@ type Character {
 type User {
   id: Int!
   name: String!
+  companyID: Int!
+  company: Company!
+}
+
+type Company {
+  id: Int!
+  name: String!
+  users: [User!]
 }
 
 type Query {
+  companies: [Company!]!
   characters: [Character!]!
   getCharacter(id: String!): Character!
   users: [User!]!
@@ -30,10 +39,16 @@ type Query {
 }
 
 type Mutation {
+  createCompany(createCompanyInput: CreateCompanyInput!): Company!
   createUser(createUserInput: CreateUserInput!): User!
   deleteUser(id: Int!): Boolean!
 }
 
+input CreateCompanyInput {
+  name: String!
+}
+
 input CreateUserInput {
   name: String!
+  companyID: Float!
 }

@@ -1,11 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { CompaniesService } from '../companies/companies.service';
+import { Company } from '../companies/company.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { User } from './user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('USERS_REPOSITORY') private usersRepository: typeof User
+    @Inject('USERS_REPOSITORY') private usersRepository: typeof User,
+    private companiesService: CompaniesService
   ) {}
 
   async getAllUsers(): Promise<User[]> {
@@ -23,5 +26,9 @@ export class UsersService {
 
   async deleteUserByID(id: number): Promise<void> {
     this.usersRepository.destroy({ where: { id } });
+  }
+
+  async getCompanyByID(companyID: number): Promise<Company> {
+    return this.companiesService.getCompanyByID(companyID);
   }
 }

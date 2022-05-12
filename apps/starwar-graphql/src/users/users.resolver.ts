@@ -1,4 +1,14 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveField,
+  Parent,
+  Context,
+} from '@nestjs/graphql';
+import { Company } from '../companies/company.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
@@ -30,5 +40,13 @@ export class UsersResolver {
   ): Promise<boolean> {
     this.userService.deleteUserByID(id);
     return true;
+  }
+
+  @ResolveField((returns) => Company)
+  async company(
+    @Parent() user: User,
+    @Context() { loaders }: IGraphQLContext
+  ): Promise<Company> {
+    return (await loaders).companiesLoader.load(user.companyID);
   }
 }
