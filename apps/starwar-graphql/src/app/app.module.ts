@@ -9,18 +9,29 @@ import configuration from '@/config/configuration';
 import { UsersModule } from '../users/users.module';
 import { DatabaseModule } from '@/src/database/database.module';
 import { CompaniesModule } from '../companies/companies.module';
+import { DataLoaderModule } from '../data-loader/data-loader.module';
+import { DataloaderService } from '../data-loader/data-loader.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync({
       driver: ApolloDriver,
-      autoSchemaFile: join(
-        process.cwd(),
-        'apps/starwar-graphql/src/schema.gql'
-      ),
+      imports: [DataLoaderModule],
+      inject: [DataloaderService],
+      useFactory: (dataloaderService: DataloaderService) => {
+        return {
+          autoSchemaFile: join(
+            process.cwd(),
+            'apps/starwar-graphql/src/schema.gql'
+          ),
+          context: () => ({
+            loaders: dataloaderService.createLoaders(),
+          }),
+        };
+      },
     }),
     CharactersModule,
     DatabaseModule.register({
