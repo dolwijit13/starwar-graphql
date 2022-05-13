@@ -1,7 +1,6 @@
 import { UsersService } from '@/src/users/users.service';
 import { usersProviders } from '@/src/users/users.providers';
 import { Test } from '@nestjs/testing';
-import { DatabaseModule } from '@/src/database/database.module';
 import { User } from './user.entity';
 
 describe('integration UsersService', () => {
@@ -11,16 +10,11 @@ describe('integration UsersService', () => {
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [
-        DatabaseModule.register({
-          dialect: 'sqlite',
-          database: ':memory:',
-        }),
-      ],
       providers: [UsersService, ...usersProviders],
     }).compile();
 
     usersService = moduleRef.get<UsersService>(UsersService);
+    await usersService.lazyLoadDB();
 
     user1 = await User.create({ name: 'test test' });
     user2 = await User.create({ name: 'first last' });
