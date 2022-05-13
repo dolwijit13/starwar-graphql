@@ -52,8 +52,47 @@ describe('[e2e] PeopleResolver', () => {
   const gql = '/graphql';
 
   describe('getAllPeople', () => {
-    it('should return id and name', () => {
+    it('should return an array of people', () => {
+      return (
+        request(app.getHttpServer())
+          .post(gql)
+          .send({
+            query:
+              `
+              query getCharacters {
+                getAllPeople{
+                  id,
+                  species {
+                    name,
+                    homeworld {
+                      name
+                    }
+                  }
+                }
+              }
+              `,
+          })
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.data.getAllPeople.sort()).toEqual(mockPeople.sort().map((person) => {
+              return {
+                id: person.id,
+                species: person.species ?
+                  {
+                    name: person.species?.name,
+                    homeworld: {
+                      name: person.species?.homeworld?.name
+                    }
+                  } : null
+              }
+            }));
+            expect(mockGetAllPeople.mock.calls.length).toBe(1)
+            expect(mockGetAllPeople.mock.calls[0]).toEqual([]);
+          })
+      )
+    })
 
+    it('should return an array of people with only selected attributes', () => {
       return (
         request(app.getHttpServer())
           .post(gql)
@@ -78,45 +117,5 @@ describe('[e2e] PeopleResolver', () => {
           })
       )
     })
-  })
-
-  it('should return id, species and homeworld name', () => {
-    return (
-      request(app.getHttpServer())
-        .post(gql)
-        .send({
-          query:
-            `
-            query getCharacters {
-              getAllPeople{
-                id,
-                species {
-                  name,
-                  homeworld {
-                    name
-                  }
-                }
-              }
-            }
-            `,
-        })
-        .expect(200)
-        .expect((res) => {
-          expect(res.body.data.getAllPeople.sort()).toEqual(mockPeople.sort().map((person) => {
-            return {
-              id: person.id,
-              species: person.species ?
-                {
-                  name: person.species?.name,
-                  homeworld: {
-                    name: person.species?.homeworld?.name
-                  }
-                } : null
-            }
-          }));
-          expect(mockGetAllPeople.mock.calls.length).toBe(1)
-          expect(mockGetAllPeople.mock.calls[0]).toEqual([]);
-        })
-    )
   })
 });
