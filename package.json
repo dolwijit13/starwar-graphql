@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve NODE_ENV=development",
+    "start": "NODE_ENV=development nx serve",
     "build": "nx build",
-    "test": "nx test --setupFiles dotenv/config NODE_ENV=test",
+    "test": "NODE_ENV=test nx test --setupFiles dotenv/config",
     "test:e2e": "nx test --setupFiles dotenv/config -t e2e",
     "test:integration": "nx test --setupFiles dotenv/config -t integration"
   },
