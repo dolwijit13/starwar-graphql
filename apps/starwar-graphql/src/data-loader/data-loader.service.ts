@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import DataLoader from 'dataloader';
 import { RedisClientType } from 'redis';
 import { CompaniesService } from '../companies/companies.service';
 import { Company } from '../companies/company.entity';
 import { IDataloaders } from './data-loader.interface';
+import DataLoader = require('dataloader');
 
 const REDIS_KEY_EXPIRE_TIME = 30 * 60;
 
