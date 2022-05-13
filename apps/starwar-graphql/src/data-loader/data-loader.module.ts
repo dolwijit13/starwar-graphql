@@ -1,10 +1,17 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { CompaniesModule } from '../companies/companies.module';
 import { DataloaderService } from './data-loader.service';
+import { createDataLoaderProvider } from './data-loader.providers';
+@Module({})
+export class DataLoaderModule {
+  static register(): DynamicModule {
+    const provider: Provider = createDataLoaderProvider();
 
-@Module({
-  providers: [DataloaderService],
-  imports: [CompaniesModule],
-  exports: [DataloaderService],
-})
-export class DataLoaderModule {}
+    return {
+      module: DataLoaderModule,
+      imports: [CompaniesModule],
+      providers: [DataloaderService, provider],
+      exports: [DataloaderService, provider],
+    };
+  }
+}

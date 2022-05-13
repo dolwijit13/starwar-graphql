@@ -6,4 +6,5 @@ export default () => ({
   dbPort: process.env.DB_PORT || 5432,
   dbUsername: process.env.DB_USERNAME || '',
   dbPassword: process.env.DB_PASSWORD || '',
+  redisUrl: process.env.REDIS_URL || 'redis://localhost:6379',
 });

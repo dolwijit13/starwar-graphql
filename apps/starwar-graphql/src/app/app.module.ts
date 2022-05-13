@@ -19,7 +19,7 @@ import { DataloaderService } from '../data-loader/data-loader.service';
     }),
     GraphQLModule.forRootAsync({
       driver: ApolloDriver,
-      imports: [DataLoaderModule],
+      imports: [DataLoaderModule.register()],
       inject: [DataloaderService],
       useFactory: (dataloaderService: DataloaderService) => {
         return {
