@@ -9,7 +9,6 @@ import * as DataLoader from 'dataloader';
 export class UserResolver {
   constructor(
     private userService: UserService,
-    private companyService: CompanyService
   ) {}
 
   @ResolveField('company', () => Company)
