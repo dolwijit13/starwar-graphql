@@ -15,7 +15,6 @@ export const createCompaniesLoader = (companiesService: CompanyService) => {
   return new DataLoader<number, Company>(async (ids: number[]) => {
     const dataFromRedis = await client.mGet(ids.map((id: number) => `company_${id}`))
     const companiesFromRedis = dataFromRedis.map((data) => JSON.parse(data) as Company)
-    console.log(dataFromRedis)
     if(dataFromRedis.includes(null)) {
       const results = await companiesService.getCompaniesByIds(ids);
       const clientMulti = client.multi();
