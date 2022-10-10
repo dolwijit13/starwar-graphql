@@ -3,9 +3,9 @@ import { Homeworld } from './homeworld.model';
 
 @ObjectType()
 export class Species {
-  @Field(type => String)
+  @Field()
   name: string;
 
-  @Field(type => Homeworld, { nullable: true })
+  @Field(() => Homeworld, { nullable: true })
   homeworld?: Homeworld;
 }

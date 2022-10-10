@@ -2,9 +2,9 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Homeworld {
-  @Field(type => String)
+  @Field()
   name: string;
 
-  @Field(type => Int, { nullable: true })
+  @Field(() => Int, { nullable: true })
   diameter?: number;
 }
